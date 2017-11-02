@@ -26,7 +26,7 @@ function listAllProducts() {
         console.log("ID #  || Product     ||     Department     ||     Price");
         console.log("============================================================");
         for (var i = 0; i < results.length; i++) {
-            console.log("Id: " +results[i].item_id + " || " + results[i].product_name+ " || "
+            console.log("Id: " +results[i].item_id + "  || " + results[i].product_name+ " || "
                 + results[i].department_name + " || " + results[i].price);
         }
     });
