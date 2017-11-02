@@ -3,6 +3,7 @@ var inquirer = require("inquirer");
 var config = require("./config.js");
 var user = config.user;
 var password = config.password;
+var totalSales;
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -69,6 +70,7 @@ function whatToBuy() {
                 if (userInput.choiceid === res[i].product_name) {
                     stockQuantity = res[i].stock_quantity;
                     stockPrice = res[i].price;
+                    totalSales = res[i].product_sales;
                 }
             }
             console.log(stockQuantity);
@@ -80,7 +82,7 @@ function whatToBuy() {
                 var newQuantity = stockQuantity - userInput.quantity;
                 console.log(newQuantity);
                 updateQuantity(newQuantity, userInput.choiceid);
-                calculatePrice(userInput.quantity, stockPrice);
+                calculatePrice(userInput.quantity, stockPrice, userInput.choiceid);
             }
         })
     })
@@ -103,11 +105,48 @@ function updateQuantity(quan, product) {
             if (err) throw err;
         }
     );
-    connection.end();
 }
 
-function calculatePrice(quan, price) {
+function calculatePrice(quan, price, product) {
     var cost = quan * price;
     console.log("You total is $" + cost);
     console.log("Tax will be collected based on state");
+    productSales(cost, product)
+}
+
+//  challenge 3
+function productSales(cost, product) {
+    var sales = cost + totalSales;
+
+    connection.query("UPDATE products SET ? WHERE ?",
+        [
+            {
+                product_sales: sales
+            },
+            {
+                product_name: product
+            }
+        ],
+        function (err, rest) {
+            if (err) throw err;
+            askUserToStartOver();
+        }
+    );
+};
+
+function askUserToStartOver() {
+    inquirer.prompt([
+        {
+            message: "Would you like to see the options again?",
+            type: "list",
+            choices: ["Yes", "No"],
+            name: "option"
+        }
+    ]).then(function (selection) {
+        if(selection.option === "Yes") {
+            listAllProducts();
+        } else {
+            connection.end();
+        }
+    })
 }

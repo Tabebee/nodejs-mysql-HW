@@ -8,7 +8,15 @@ CREATE TABLE products(
   department_name VARCHAR(50),
   price INTEGER(100),
   stock_quantity INTEGER(50),
-  PRIMARY KEY (item_id)
+  PRIMARY KEY (item_id),
+  product_sales INTEGER(200) NOT NULL DEFAULT '0'
+);
+
+CREATE TABLE departments(
+  department_id INT NOT NULL AUTO_INCREMENT,
+  department_name VARCHAR(50),
+  over_head_costs INTEGER(50),
+  PRIMARY KEY (department_id)
 );
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
