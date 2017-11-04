@@ -30,3 +30,10 @@ INSERT INTO products(product_name, department_name, price, stock_quantity)
             ("Legendary Board Game", "Toys & Games", 50, 9),
             ("The Count Of Monte Cristo", "Books", 15, 20),
             ("27 Speed Mountain Bike", "Outdoors", 200, 4);
+
+nhl 18 ps4
+assassins creed ps4
+ww2 ps4
+
+dbz xenoverse switch
+
