@@ -64,8 +64,8 @@ function whatToBuy() {
         ]).then(function (userInput) {
             var stockQuantity;
             var stockPrice;
-            console.log(userInput.choiceid);
-            console.log(userInput.quantity);
+            // console.log(userInput.choiceid);
+            // console.log(userInput.quantity);
             for (var i = 0; i < res.length; i++) {
                 if (userInput.choiceid === res[i].product_name) {
                     stockQuantity = res[i].stock_quantity;
@@ -73,14 +73,14 @@ function whatToBuy() {
                     totalSales = res[i].product_sales;
                 }
             }
-            console.log(stockQuantity);
+            // console.log(stockQuantity);
         //    check if stock has enough tp accomodate the order
             if (stockQuantity < userInput.quantity) {
                 console.log("Insufficient quantity!");
                 // return false;
             } else {
                 var newQuantity = stockQuantity - userInput.quantity;
-                console.log(newQuantity);
+                // console.log(newQuantity);
                 updateQuantity(newQuantity, userInput.choiceid);
                 calculatePrice(userInput.quantity, stockPrice, userInput.choiceid);
             }
